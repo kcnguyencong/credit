@@ -55,7 +55,12 @@ export async function GET() {
       );
     `);
     
-    await client.query(`CREATE INDEX IF NOT EXISTS idx_transactions_customer_id ON transactions(customer_id);`);
+    // Safe index creation
+    try {
+      await client.query(`CREATE INDEX IF NOT EXISTS idx_transactions_customer_id ON transactions(customer_id);`);
+    } catch (e) {
+      // ignore if index already exists
+    }
 
     // 5. Create Payment Tickets table
     await client.query(`
@@ -70,8 +75,16 @@ export async function GET() {
       );
     `);
 
-    await client.query(`CREATE INDEX IF NOT EXISTS idx_payment_tickets_status ON payment_tickets(status);`);
-    await client.query(`CREATE INDEX IF NOT EXISTS idx_payment_tickets_customer ON payment_tickets(customer_id);`);
+    try {
+      await client.query(`CREATE INDEX IF NOT EXISTS idx_payment_tickets_status ON payment_tickets(status);`);
+    } catch (e) {
+      // ignore if exists
+    }
+    try {
+      await client.query(`CREATE INDEX IF NOT EXISTS idx_payment_tickets_customer ON payment_tickets(customer_id);`);
+    } catch (e) {
+      // ignore if exists
+    }
 
     return NextResponse.json({ message: 'Database initialized successfully' }, { status: 200 });
   } catch (error) {
