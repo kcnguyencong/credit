@@ -96,7 +96,7 @@ export async function sendBackupToTelegram(): Promise<{ success: boolean; messag
       `💰 <b>Tổng nợ hiện tại:</b> ${formatMoney(backupData.summary.total_debt)} đ`,
       `🧾 <b>Tổng giao dịch:</b> ${backupData.summary.total_transactions}`,
       `🎫 <b>Vé thanh toán:</b> ${backupData.summary.total_tickets}`,
-      `🍹 <b>Thực đơn:</b> ${backupData.summary.total_products} món`,
+      `💳 <b>Dịch vụ:</b> ${backupData.summary.total_products} gói dịch vụ`,
       ``,
       `<i>💡 File JSON đính kèm lưu toàn bộ CSDL. Bạn có thể lưu lại hoặc dùng để khôi phục bất cứ lúc nào.</i>`,
     ].join('\n');

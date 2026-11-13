@@ -10,12 +10,13 @@ export interface Customer {
 export interface Category {
   id: number;
   name: string;
-  type: 'Drink' | 'Food';
+  type?: string | null;
+  icon?: string | null;
 }
 
 export interface Product {
   id: number;
-  category_id: number;
+  category_id: number | null;
   name: string;
   price: number;
   active: boolean;
@@ -42,4 +43,3 @@ export interface PaymentTicket {
   created_at: Date;
   resolved_at?: Date | null;
 }
-

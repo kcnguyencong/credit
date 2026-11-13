@@ -1,43 +1,65 @@
-import { getProducts } from '@/lib/db';
+import { getProducts, getCategories } from '@/lib/db';
 import { addProduct } from '@/lib/actions';
 import ProductList from '@/components/ProductList';
 
 export const instant = false;
 
 export default async function ProductsPage() {
-  const products = await getProducts();
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories()
+  ]);
 
   return (
     <div className="page-wrap">
-      <h2 className="page-title">Dịch vụ</h2>
+      <h2 className="page-title">Dịch vụ & Biểu phí</h2>
       
-      {/* Form thêm món mới */}
+      {/* Form thêm dịch vụ / khoản phí mới */}
       <div className="card" style={{ padding: '16px', borderRadius: '18px' }}>
-        <h3 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '12px', color: '#111827' }}>
-          Thêm gói dịch vụ / khoản phí
-        </h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: '#111827' }}>
+            Thêm gói dịch vụ / khoản phí mới
+          </h3>
+        </div>
+
         <form action={addProduct}>
           <div className="input-group">
-            <label>Tên dịch vụ</label>
-            <input type="text" name="name" className="input" placeholder="VD: Phở bò, Cà phê sữa..." required />
+            <label>Tên dịch vụ / khoản phí</label>
+            <input 
+              type="text" 
+              name="name" 
+              className="input" 
+              placeholder="VD: Đáo hạn thẻ Techcombank, Phí rút tiền mặt POS 1.8%..." 
+              required 
+            />
           </div>
           <div className="input-group">
-            <label>Giá tiền (VND)</label>
-            <input type="number" name="price" className="input" placeholder="35000" required />
+            <label>Giá tiền / Định mức (VND)</label>
+            <input 
+              type="number" 
+              name="price" 
+              className="input" 
+              placeholder="VD: 500000" 
+              required 
+            />
           </div>
           <div className="input-group">
             <label>Phân loại</label>
-            <select name="categoryId" className="input" required defaultValue="1">
-              <option value="1">Đồ uống (Drink)</option>
-              <option value="2">Đồ ăn (Food)</option>
+            <select name="categoryId" className="input" defaultValue={categories[0]?.id || ''}>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.icon || '💳'} {cat.name}
+                </option>
+              ))}
+              <option value="">Chưa phân loại</option>
             </select>
           </div>
           <button type="submit" className="btn">Thêm Dịch Vụ</button>
         </form>
       </div>
 
-      {/* Danh sách món đồng bộ phong cách với danh sách khách */}
-      <ProductList products={products} />
+      {/* Danh sách dịch vụ & Bộ lọc / Quản lý nhóm */}
+      <ProductList products={products} categories={categories} />
     </div>
   );
 }

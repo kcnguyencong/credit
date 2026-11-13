@@ -94,6 +94,33 @@ export async function getCategories() {
   return rows;
 }
 
+export async function createCategory(name: string, icon = '💳') {
+  await connection();
+  const db = getClient();
+  const { rows } = await db.query<Category>(
+    `INSERT INTO categories (name, icon) VALUES ($1, $2) RETURNING *;`,
+    [name.trim(), icon || '💳']
+  );
+  return rows[0];
+}
+
+export async function updateCategory(id: number, name: string, icon?: string) {
+  await connection();
+  const db = getClient();
+  const { rows } = await db.query<Category>(
+    `UPDATE categories SET name = $1, icon = COALESCE($2, icon) WHERE id = $3 RETURNING *;`,
+    [name.trim(), icon || null, id]
+  );
+  return rows[0];
+}
+
+export async function deleteCategory(id: number) {
+  await connection();
+  const db = getClient();
+  await db.query(`UPDATE products SET category_id = NULL WHERE category_id = $1;`, [id]);
+  await db.query(`DELETE FROM categories WHERE id = $1;`, [id]);
+}
+
 // Products
 export async function getProducts() {
   await connection();

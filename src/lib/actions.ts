@@ -449,6 +449,59 @@ export async function triggerBackupToTelegramAction() {
   return await sendBackupToTelegram();
 }
 
+// ─── CATEGORY ACTIONS ───
+
+export async function addCategoryAction(formData: FormData): Promise<void> {
+  const name = (formData.get('name') as string)?.trim();
+  const icon = (formData.get('icon') as string)?.trim() || '💳';
+
+  if (!name) return;
+
+  const db = getClient();
+  try {
+    await db.query(`INSERT INTO categories (name, icon) VALUES ($1, $2);`, [name, icon]);
+    revalidatePath('/products');
+    revalidatePath('/transaction');
+    revalidatePath('/');
+  } catch (e) {
+    console.error('Lỗi khi thêm danh mục:', e);
+  }
+}
+
+export async function updateCategoryAction(formData: FormData): Promise<void> {
+  const id = Number(formData.get('id'));
+  const name = (formData.get('name') as string)?.trim();
+  const icon = (formData.get('icon') as string)?.trim() || '💳';
+
+  if (!id || !name) return;
+
+  const db = getClient();
+  try {
+    await db.query(`UPDATE categories SET name = $1, icon = $2 WHERE id = $3;`, [name, icon, id]);
+    revalidatePath('/products');
+    revalidatePath('/transaction');
+    revalidatePath('/');
+  } catch (e) {
+    console.error('Lỗi khi cập nhật danh mục:', e);
+  }
+}
+
+export async function deleteCategoryAction(formData: FormData): Promise<void> {
+  const id = Number(formData.get('id'));
+  if (!id) return;
+
+  const db = getClient();
+  try {
+    await db.query(`UPDATE products SET category_id = NULL WHERE category_id = $1;`, [id]);
+    await db.query(`DELETE FROM categories WHERE id = $1;`, [id]);
+    revalidatePath('/products');
+    revalidatePath('/transaction');
+    revalidatePath('/');
+  } catch (e) {
+    console.error('Lỗi khi xóa danh mục:', e);
+  }
+}
+
 
 
 

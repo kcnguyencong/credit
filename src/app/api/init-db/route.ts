@@ -16,21 +16,52 @@ export async function GET() {
       );
     `);
 
-    // 2. Create Categories table
+    // 2. Create / Migrate Categories table
     await client.query(`
       CREATE TABLE IF NOT EXISTS categories (
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        type VARCHAR(20) NOT NULL CHECK (type IN ('Drink', 'Food'))
+        type VARCHAR(50),
+        icon VARCHAR(20) DEFAULT '💳'
       );
     `);
-    
-    // Insert default categories
-    await client.query(`
-      INSERT INTO categories (id, name, type)
-      VALUES (1, 'Đồ uống', 'Drink'), (2, 'Đồ ăn', 'Food')
-      ON CONFLICT (id) DO NOTHING;
-    `);
+
+    // Migration safe steps for categories
+    try {
+      await client.query(`ALTER TABLE categories DROP CONSTRAINT IF EXISTS categories_type_check;`);
+    } catch (e) {
+      // ignore
+    }
+    try {
+      await client.query(`ALTER TABLE categories ALTER COLUMN type DROP NOT NULL;`);
+    } catch (e) {
+      // ignore
+    }
+    try {
+      await client.query(`ALTER TABLE categories ADD COLUMN IF NOT EXISTS icon VARCHAR(20) DEFAULT '💳';`);
+    } catch (e) {
+      // ignore
+    }
+
+    // Insert default financial categories if table is empty, or update legacy food/drink categories
+    const catCheck = await client.query(`SELECT COUNT(*) FROM categories;`);
+    if (parseInt(catCheck.rows[0].count) === 0) {
+      await client.query(`
+        INSERT INTO categories (name, type, icon) VALUES 
+          ('Đáo hạn thẻ tín dụng', 'finance', '💳'),
+          ('Rút tiền mặt POS', 'finance', '🏧'),
+          ('Lãi & Phí dịch vụ', 'finance', '📈'),
+          ('Khoản vay gốc', 'finance', '💵');
+      `);
+    } else {
+      // Update legacy names if they still exist
+      await client.query(`
+        UPDATE categories SET name = 'Đáo hạn thẻ tín dụng', icon = '💳' WHERE name = 'Đồ uống';
+      `);
+      await client.query(`
+        UPDATE categories SET name = 'Rút tiền mặt POS', icon = '🏧' WHERE name = 'Đồ ăn';
+      `);
+    }
 
     // 3. Create Products table
     await client.query(`
