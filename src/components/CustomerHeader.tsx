@@ -80,30 +80,23 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
         </div>
       )}
 
-      <div className="home-header" style={{ position: 'relative', zIndex: showMenu ? 50 : 'auto' }}>
-        {/* Top row */}
-        <div className="home-header-top" style={{ position: 'relative', zIndex: showMenu ? 50 : 2 }}>
+      <div style={{ padding: '16px 16px 12px', position: 'relative', zIndex: showMenu ? 50 : 'auto' }}>
+        {/* Top bar */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link 
               href="/customers" 
-              className="icon-btn" 
-              style={{ 
-                textDecoration: 'none', 
-                color: '#FFFFFF', 
-                cursor: 'pointer', 
-                opacity: 1, 
-                pointerEvents: 'auto'
-              }}
+              className="fintech-icon-pill"
               aria-label="Quay lại danh sách"
             >
-              <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '18px', height: '18px' }}>
+              <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '17px', height: '17px' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
               </svg>
             </Link>
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h1 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#FFFFFF', margin: 0, letterSpacing: '-0.3px', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.3px' }}>
                   {customer.name}
                 </h1>
                 
@@ -113,14 +106,12 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
                     type="button"
                     onClick={() => setShowMenu(v => !v)}
                     style={{
-                      width: '26px',
-                      height: '26px',
+                      width: '28px',
+                      height: '28px',
                       borderRadius: '50%',
-                      background: 'rgba(255, 255, 255, 0.22)',
-                      backdropFilter: 'blur(8px)',
-                      WebkitBackdropFilter: 'blur(8px)',
-                      border: '1px solid rgba(255, 255, 255, 0.35)',
-                      color: '#FFFFFF',
+                      background: '#F1F5F9',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-muted)',
                       display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -130,7 +121,7 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
                     title="Tùy chọn thao tác"
                     aria-label="Tùy chọn thao tác"
                   >
-                    <svg fill="currentColor" viewBox="0 0 24 24" style={{ width: '16px', height: '16px' }}>
+                    <svg fill="currentColor" viewBox="0 0 24 24" style={{ width: '15px', height: '15px' }}>
                       <circle cx="5" cy="12" r="2" />
                       <circle cx="12" cy="12" r="2" />
                       <circle cx="19" cy="12" r="2" />
@@ -149,11 +140,11 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
                           top: '32px',
                           left: 0,
                           background: '#FFFFFF',
-                          borderRadius: '14px',
-                          boxShadow: '0 10px 28px rgba(0, 0, 0, 0.28)',
-                          border: '1px solid #E5E7EB',
-                          padding: '5px',
-                          minWidth: '165px',
+                          borderRadius: '16px',
+                          boxShadow: '0 12px 32px rgba(0, 0, 0, 0.15)',
+                          border: '1px solid #E2E8F0',
+                          padding: '6px',
+                          minWidth: '180px',
                           zIndex: 1000,
                           animation: 'modalFadeIn 0.12s ease-out'
                         }}
@@ -210,7 +201,7 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
                             textAlign: 'left'
                           }}
                         >
-                          <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '15px', height: '15px', color: '#0284C7' }}>
+                          <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '15px', height: '15px', color: '#0066FF' }}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                           </svg>
                           <span>Xuất bill đối soát</span>
@@ -280,7 +271,7 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
                   )}
                 </div>
               </div>
-              <div style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.82)', marginTop: '2px', textShadow: '0 1px 2px rgba(0,0,0,0.4)' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '2px', fontWeight: 500 }}>
                 {customer.phone ? customer.phone : 'Chưa có số ĐT'}
               </div>
             </div>
@@ -294,73 +285,94 @@ export default function CustomerHeader({ customer, transactions = [] }: { custom
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '7px 13px',
+              padding: '7px 14px',
               borderRadius: '20px',
-              background: 'rgba(255, 255, 255, 0.22)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255, 255, 255, 0.38)',
-              color: '#FFFFFF',
+              background: '#FFFFFF',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-main)',
               fontSize: '0.82rem',
               fontWeight: 700,
               cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
               transition: 'all 0.15s ease'
             }}
             title="Xuất bill đối soát gửi khách"
           >
-            <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" style={{ width: '15px', height: '15px' }}>
+            <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" style={{ width: '15px', height: '15px', color: 'var(--primary)' }}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
             </svg>
             <span>Xuất bill</span>
           </button>
         </div>
 
-        {/* Balance Display Card */}
-        <div className="home-balance-card">
-          <div className="home-balance-card-left">
-            <div className="home-balance-label">
-              <span>Tổng Nợ Hiện Tại</span>
+        {/* Customer Virtual Metallic Credit Card (Matching Reference Image) */}
+        <div className="fintech-card">
+          <div className="fintech-card-header">
+            <div className="fintech-card-logo" aria-hidden="true">
+              <div className="circle circle-1" />
+              <div className="circle circle-2" />
+            </div>
+
+            <div className="fintech-card-contactless" aria-label="Contactless payment">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                <path d="M8.5 16.5a5 5 0 0 1 0-9" />
+                <path d="M12 19a8.5 8.5 0 0 0 0-14" />
+                <path d="M15.5 21.5a12 12 0 0 0 0-19" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="fintech-card-body">
+            <div className="fintech-card-label">
+              <span>Tổng nợ hiện tại</span>
               <button
+                type="button"
                 onClick={() => setShowBalance(v => !v)}
-                className="eye-toggle-btn"
+                className="fintech-eye-btn"
                 aria-label="Ẩn / Hiện số nợ"
               >
                 {showBalance ? (
-                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" style={{ width: '18px', height: '18px' }}>
+                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '16px', height: '16px' }}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                   </svg>
                 ) : (
-                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" style={{ width: '18px', height: '18px' }}>
+                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '16px', height: '16px' }}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
                   </svg>
                 )}
               </button>
             </div>
-            <div className="home-balance-amount" style={{ color: totalDebt > 0 ? '#FFA39E' : '#FFFFFF' }}>
-              {showBalance ? `${totalDebt > 0 ? '- ' : ''}${formattedDebt}` : '••••••'}
-              <span style={{ color: 'rgba(255, 255, 255, 0.85)' }}>đ</span>
+
+            <div className="fintech-card-amount">
+              {showBalance ? `${totalDebt > 0 ? '' : ''}${formattedDebt}` : '••••••••'}
+              <span className="currency-unit">đ</span>
             </div>
           </div>
 
-          <div className="home-balance-card-right">
+          <div className="fintech-card-footer">
+            <div className="fintech-card-meta">
+              <span>12/28</span>
+              <span>•••• {customer.phone ? customer.phone.slice(-4) : '8899'}</span>
+            </div>
+
             <button
+              type="button"
               onClick={() => {
                 setPayAmount(totalDebt > 0 ? totalDebt : '');
                 setShowPayModal(true);
               }}
               disabled={totalDebt <= 0}
-              className="customer-pay-btn"
+              className="fintech-card-action-btn"
               style={{
                 opacity: totalDebt <= 0 ? 0.5 : 1,
                 cursor: totalDebt <= 0 ? 'not-allowed' : 'pointer'
               }}
             >
-              <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" style={{ width: '15px', height: '15px' }}>
+              <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" style={{ width: '14px', height: '14px', color: 'var(--success)' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6H2.25m0 0v8.25m0-8.25a60.073 60.073 0 0 1 15.797-2.101c.727-.198 1.453.342 1.453 1.096V6m0 0v12m0-12a59.83 59.83 0 0 1 2.25.042m0 0a.75.75 0 0 1 .75.75v10.416a.75.75 0 0 1-.75.75m0 0a59.83 59.83 0 0 1-2.25.042" />
               </svg>
-              <span>Thanh toán nợ</span>
+              <span>Thanh toán</span>
             </button>
           </div>
         </div>

@@ -254,13 +254,10 @@ export default function TransactionForm({ customers, products }: { customers: Cu
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-              <line x1="6" y1="1" x2="6" y2="4"></line>
-              <line x1="10" y1="1" x2="10" y2="4"></line>
-              <line x1="14" y1="1" x2="14" y2="4"></line>
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <line x1="2" y1="10" x2="22" y2="10" />
             </svg>
-            <span>Ghi theo món</span>
+            <span>Ghi theo dịch vụ</span>
           </button>
 
           <button
@@ -311,11 +308,11 @@ export default function TransactionForm({ customers, products }: { customers: Cu
           {/* 1. Chọn món */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px', margin: '4px 0 12px' }}>
             <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#111827' }}>
-              1. Chọn món (chạm để chọn số lượng)
+              1. Chọn dịch vụ (chạm để chọn số lượng)
             </h3>
             {productItemCount > 0 && (
               <span style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 700 }}>
-                {productItemCount} món • {formattedProductPerPerson}đ/người
+                {productItemCount} mục • {formattedProductPerPerson}đ/người
               </span>
             )}
           </div>
@@ -673,7 +670,7 @@ export default function TransactionForm({ customers, products }: { customers: Cu
               {isSubmitting
                 ? 'Đang ghi nợ...'
                 : productTotalPerPerson <= 0
-                  ? 'Vui lòng chọn món để ghi nợ'
+                  ? 'Vui lòng chọn dịch vụ để ghi nợ'
                   : selectedCustomerIds.length === 0
                     ? 'Chọn ít nhất 1 người để ghi nợ'
                     : selectedCustomerIds.length === 1
@@ -800,11 +797,11 @@ export default function TransactionForm({ customers, products }: { customers: Cu
           {/* 2. Chọn một hoặc nhiều món */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px', margin: '8px 0 12px' }}>
             <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#111827' }}>
-              2. Chọn món (chạm để chọn nhiều)
+              2. Chọn dịch vụ / biểu phí
             </h3>
             {customerTotalItemCount > 0 && (
               <span style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 700 }}>
-                Đã chọn {customerTotalItemCount} món
+                Đã chọn {customerTotalItemCount} mục
               </span>
             )}
           </div>
@@ -949,7 +946,7 @@ export default function TransactionForm({ customers, products }: { customers: Cu
             {customerSelectedItems.length > 0 && (
               <div style={{ background: '#FFFFFF', borderRadius: '14px', padding: '12px 14px', marginBottom: '14px', border: '1px solid #E5E7EB' }}>
                 <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', marginBottom: '8px' }}>
-                  Các món ghi nợ ({customerTotalItemCount}):
+                  Dịch vụ & khoản phí ({customerTotalItemCount}):
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {customerSelectedItems.map((item, idx) => (
@@ -992,7 +989,7 @@ export default function TransactionForm({ customers, products }: { customers: Cu
                 ? 'Đang ghi nợ...'
                 : customerTotalAmount > 0
                   ? `Xác Nhận Ghi Nợ (+${formattedCustomerTotal}đ)`
-                  : 'Chọn khách và món để ghi nợ'}
+                  : 'Chọn khách và dịch vụ để ghi nợ'}
             </button>
           </div>
         </>

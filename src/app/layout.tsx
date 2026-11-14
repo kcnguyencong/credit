@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body style={{ margin: 0, padding: 0, background: '#0B1329' }}>
+      <body style={{ margin: 0, padding: 0, background: '#F1F4F9' }}>
         <div className="mobile-container">
           <main>
             {children}

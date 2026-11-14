@@ -51,7 +51,7 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
       const unitPrice = p ? Number(p.price) : 0;
       return {
         productId: Number(idStr),
-        name: p ? p.name : 'Món',
+        name: p ? p.name : 'Dịch vụ',
         quantity: qty,
         unitPrice,
         amount: unitPrice * qty
@@ -61,7 +61,7 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
   if (Number(customAmount) > 0) {
     selectedItems.push({
       productId: null,
-      name: 'Món khác / Tự do',
+      name: 'Khoản phí khác / Tự do',
       quantity: 1,
       unitPrice: Number(customAmount),
       amount: Number(customAmount)
@@ -89,7 +89,7 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
           </div>
           <div>
             <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#111827' }}>Ghi nợ hôm nay</h3>
-            <span style={{ fontSize: '0.75rem', color: '#6B7280' }}>Chọn một hoặc nhiều món để ghi nợ</span>
+            <span style={{ fontSize: '0.75rem', color: '#6B7280' }}>Chọn dịch vụ hoặc khoản phí để ghi nợ</span>
           </div>
         </div>
 
@@ -117,15 +117,15 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
         {/* Pass array of items as JSON */}
         <input type="hidden" name="items" value={JSON.stringify(selectedItems.map(i => ({ productId: i.productId, amount: i.amount, quantity: i.quantity })))} />
 
-        {/* 1. Danh sách chọn nhiều món */}
+        {/* 1. Danh sách chọn nhiều dịch vụ */}
         <div style={{ marginBottom: '14px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <label style={{ fontSize: '0.8rem', fontWeight: 600, color: '#4B5563' }}>
-              1. Chọn món (chạm để thêm số lượng)
+              1. Chọn dịch vụ / biểu phí
             </label>
             {totalItemCount > 0 && (
               <span style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 700 }}>
-                Đã chọn {totalItemCount} món
+                Đã chọn {totalItemCount} mục
               </span>
             )}
           </div>
@@ -235,7 +235,7 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
               onClick={() => setShowCustomInput(v => !v)}
               className={`chip-btn ${showCustomInput || Number(customAmount) > 0 ? 'selected' : ''}`}
             >
-              <span>+ Món khác / Tiền tự do</span>
+              <span>+ Khoản phí khác / Tiền tự do</span>
             </button>
           </div>
         </div>
@@ -267,11 +267,11 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
           </div>
         )}
 
-        {/* 3. Tóm tắt các món đã chọn */}
+        {/* 3. Tóm tắt các dịch vụ đã chọn */}
         {selectedItems.length > 0 && (
           <div style={{ background: '#F9FAFB', borderRadius: '12px', padding: '10px 14px', marginBottom: '14px' }}>
             <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', marginBottom: '6px', letterSpacing: '0.3px' }}>
-              Chi tiết các món ({totalItemCount}):
+              Chi tiết dịch vụ ({totalItemCount}):
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {selectedItems.map((item, idx) => (
@@ -299,7 +299,7 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
             <span style={{ fontSize: '0.85rem', color: '#6B7280' }}>Tổng cộng:</span>
             {totalItemCount > 0 && (
               <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600, marginLeft: '6px' }}>
-                ({totalItemCount} món)
+                ({totalItemCount} mục)
               </span>
             )}
           </div>
@@ -323,7 +323,7 @@ export default function CustomerDebtCard({ customerId, products }: { customerId:
             ? 'Đang ghi nợ...' 
             : totalAmount > 0 
               ? `Ghi Nợ (+${formattedTotal}đ)` 
-              : 'Chọn món để ghi nợ'}
+              : 'Chọn dịch vụ để ghi nợ'}
         </button>
       </form>
     </div>

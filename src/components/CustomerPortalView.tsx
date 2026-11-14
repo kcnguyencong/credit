@@ -103,7 +103,7 @@ export default function CustomerPortalView({
           status: 'pending',
           created_at: new Date(),
         });
-        showToast('✓ Đã gửi thông báo cho Trang thành công!');
+        showToast('✓ Đã gửi thông báo thanh toán thành công!');
       }
     } catch {
       alert('Có lỗi xảy ra. Vui lòng thử lại!');

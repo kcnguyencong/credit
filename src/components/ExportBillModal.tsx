@@ -419,7 +419,7 @@ export default function ExportBillModal({
                   >
                     <span>📅 {formatDayHeader(group.date)}</span>
                     <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
-                      {group.items.length} món
+                      {group.items.length} giao dịch
                     </span>
                   </div>
 

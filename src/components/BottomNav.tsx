@@ -80,7 +80,7 @@ export default function BottomNav() {
                 </svg>
               </div>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: '0 0 4px', color: '#111827' }}>
-                Tài khoản chủ quán
+                Tài khoản quản trị
               </h3>
               <p style={{ fontSize: '0.85rem', color: '#6B7280', margin: 0 }}>
                 Đang đăng nhập: <strong>admin</strong>
